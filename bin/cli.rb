@@ -101,14 +101,17 @@ class CLI
     user_technology_response = gets.chomp
 
     jobs_by_technology = JobPosting.all.select do |job|
-      (job.description =~ /#{user_technology_response}/)
+      (job.description =~ /(?i)#{user_technology_response}/)
     end
 
     if jobs_by_technology.count > 0
       puts "Awesome search, broh! Here are the jobs that match your search: "
+      puts
       puts jobs_by_technology.map {|job| job[:title]}
+      puts
     else
       puts "Dang, broh... Your search didn't turn up any results."
+      puts
       search_jobs
     end
     main_menu
